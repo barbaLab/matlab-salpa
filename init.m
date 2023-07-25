@@ -29,7 +29,7 @@ if isfile('./config.txt') && isfolder('./python-salpa')
     elseif strcmp(config.PYTHON_PATH, env.Executable)
         pyrun(["import importlib", "cpython_salpa = importlib.import_module('.', 'python-salpa')"]);
         fprintf('Done\n');
-        addpath(fullfile('./SALPA.m'));
+        addpath(fullfile('../matlab-salpa'));
     else
         fprintf('Failed\n');
         fprintf('A Python environment is already loaded. Restart Matlab.\n');
