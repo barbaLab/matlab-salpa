@@ -25,7 +25,7 @@ if isfile('./config.txt') && isfolder('./python-salpa')
 
         pyrun(["import importlib", "cpython_salpa = importlib.import_module('.', 'python-salpa')"]);
         fprintf('Done\n');
-        addpath(fullfile('./SALPA.m'));
+        addpath(fullfile('../matlab-salpa'));
     elseif strcmp(config.PYTHON_PATH, env.Executable)
         pyrun(["import importlib", "cpython_salpa = importlib.import_module('.', 'python-salpa')"]);
         fprintf('Done\n');
