@@ -3,25 +3,32 @@ This repository aims at allowing the [wagenadl/python-salpa](https://github.com/
 
 ## Installation
 1) Install `conda`, `miniconda` or `mamba` if not already present.
-2) Open a terminal inside this folder.
-3) Create a Python environment from the provided `SALPA.yml` file by typing the following command into the terminal:
+2) Open a terminal window, move to the desired location and clone this repository with the command:
+    ```
+    git clone --recurse-submodules https://github.com/FrancescoNegri/matlab-salpa.git
+    ```
+3) Move inside the new `matlab-salpa` folder:
+    ```
+    cd matlab-salpa
+    ```
+4) Create a Python environment from the provided `SALPA.yml` file by typing the following command into the terminal:
     ```
     conda env create --file ./SALPA.yml
     ```
-4) Activate such environment by using:
+5) Activate such environment by using:
     ```
     conda activate SALPA
     ```
-5) Move inside the `python-salpa` subfolder:
+6) Move inside the `python-salpa` subfolder:
     ```
     cd python-salpa
     ```
-6) Compile the binaries by running:
+7) Compile the binaries by running:
     ```
     scons
     ```
     > If this step was successful move on, otherwise try to install Visual Studio (full version) with the C/C++ build tools and repeat steps 6 and 7 from the Developer Command Prompt.
-7) Edit the config.txt file and set the path to the correct Python environment:
+8) Edit the config.txt file and set the path to the correct Python environment:
     ```
     PYTHON_PATH=/path/to/.../envs/SALPA/python.exe
     ```
