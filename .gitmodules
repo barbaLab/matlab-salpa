@@ -1,0 +1,3 @@
+[submodule "python-salpa"]
+	path = python-salpa
+	url = https://github.com/wagenadl/python-salpa.git
