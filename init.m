@@ -7,7 +7,7 @@ function initPythonSalpa()
         fprintf('Correct working directory.\nInitializing Python environment...');
 
         % % Set the Python environment from config.txt
-        fileID = fopen(fullfile(fileparts(which('SALPA')), 'config.txt'));
+        fileID = fopen(fullfile(fileparts(which('salpa')), 'config.txt'));
         configFile = textscan(fileID,'%s');
         configFile = configFile{1};
         fclose(fileID);
