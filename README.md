@@ -37,4 +37,4 @@ Every time Matlab is launched, change the working directory to the `matlab-salpa
 
 > This is a critical step to ensure a proper initialization of the Python environment inside Matlab.
 
-Cheers! Now you should be able to properly call the `SALPA` function from Matlab.
+Cheers! Now you should be able to properly call the `salpa` function from Matlab.
