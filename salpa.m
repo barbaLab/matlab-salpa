@@ -1,4 +1,4 @@
-function output = salpa(signal, tau, varargin)
+function [output, varargout] = salpa(signal, tau, varargin)
     validNumPosCheck = @(x) isnumeric(x) && (x >= 0);
     
     parser = inputParser();
@@ -34,9 +34,7 @@ function output = salpa(signal, tau, varargin)
         output = signal;
     end
 
-    if iscolumn(stimIdxs)
-        stimIdxs = stimIdxs';
-    end
+    varargout{1} = zeros(size(stimIdxs));
 
     stimIdxs = [1, stimIdxs];
     artifactNSamples = diff([stimIdxs, length(output)]);
@@ -48,8 +46,12 @@ function output = salpa(signal, tau, varargin)
             t_blankdepeg=tBlankDepeg, t_ahead=tAhead, ...
             t_chi2=tChi2, t_forcepeg=tForcePeg);
 
-        output((1:artifactNSamples(idx)) + stimIdxs(idx) - 1) = double(data);
+        data = double(data);
+        output((1:artifactNSamples(idx)) + stimIdxs(idx) - 1) = data;
+        varargout{1}(idx) = find(~isnan(data), 1) - 1;
     end
+
+    varargout{1} = varargout{1}(2:end);
 
     if ~hasNan
         output(isnan(output)) = 0;
