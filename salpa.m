@@ -48,7 +48,11 @@ function [output, varargout] = salpa(signal, tau, varargin)
 
         data = double(data);
         output((1:artifactNSamples(idx)) + stimIdxs(idx) - 1) = data;
-        varargout{1}(idx) = find(~isnan(data), 1) - 1;
+        if ~all(isnan(data))
+            varargout{1}(idx) = find(~isnan(data), 1) - 1;
+        else
+            varargout{1}(idx) = length(data);
+        end
     end
 
     varargout{1} = varargout{1}(2:end);
