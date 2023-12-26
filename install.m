@@ -10,9 +10,30 @@ function installSalpa()
     fprintf('Creating SALPA virtual environment...');
     [status, cmdout] = system('conda env create --file ./SALPA.yml');
     if status ~= 0
-        error('Could not create SALPA python environment.\nCommand output:\n%s', cmdout);
+        [status, ~] = system('conda activate SALPA');
+        if status ~= 0
+            error('Could not create SALPA python environment.\nCommand output:\n%s', cmdout);
+        else
+            fprintf(' Failed.\n');
+            fprintf('SALPA environment already exists. ');
+            answer = input('Do you want to use it? [Y/n]', 's');
+            if answer == 'n'
+                answer = input('Do you want to re-create SALPA virtual environment? [y/N]', 's');
+                if answer == 'y'
+                    fprintf('Removing SALPA virtual environment...');
+                    [~, ~] = system('conda env remove -n SALPA');
+                    fprintf(' Done.\n');
+                    installSalpa();
+                    return;
+                else
+                    fprintf('Aborted.\n');
+                    return;
+                end
+            end
+        end
+    else
+        fprintf(' Done.\n');
     end
-    fprintf(' Done.\n');
 
     [~, cmdout] = system('conda env list');
     pythonPath = split(cmdout, 'SALPA');
