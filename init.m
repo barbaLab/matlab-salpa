@@ -1,43 +1,35 @@
-%% Initialize Python to call the python-salpa module
-initPythonSalpa();
+function init()
+    currentPath = pwd();
 
-function initPythonSalpa()
-    % Check the current path
-    if isfile('./config.txt') && isfolder('./python-salpa')
-        fprintf('Correct working directory.\nInitializing Python environment...');
+    newPath = mfilename('fullpath');
+    [newPath, ~, ~] = fileparts(newPath);
+    cd(newPath);
 
-        % % Set the Python environment from config.txt
-        fileID = fopen(fullfile(fileparts(which('salpa')), 'config.txt'));
-        configFile = textscan(fileID,'%s');
-        configFile = configFile{1};
-        fclose(fileID);
+    % Set the Python environment from config.txt
+    fileID = fopen('./config.txt');
+    configFile = textscan(fileID,'%s');
+    configFile = configFile{1};
+    fclose(fileID);
 
-        config = struct();
+    config = struct();
 
-        for i = 1:length(configFile)
-            row = strsplit(configFile{i}, '=');
-            config.(row{1}) = row{2};
-        end
-        config.PYTHON_PATH = strrep(config.PYTHON_PATH, '//', '\');
-        config.PYTHON_PATH = strrep(config.PYTHON_PATH, '/', '\');
-
-        env = pyenv();
-
-        if ~strcmp(env.Status, 'Loaded')
-            pyenv(Version=config.PYTHON_PATH);
-
-            pyrun(["import importlib", "cpython_salpa = importlib.import_module('.', 'python-salpa')"]);
-            fprintf('Done\n');
-            addpath(fullfile('../matlab-salpa'));
-        elseif strcmp(config.PYTHON_PATH, env.Executable)
-            pyrun(["import importlib", "cpython_salpa = importlib.import_module('.', 'python-salpa')"]);
-            fprintf('Done\n');
-            addpath(fullfile('../matlab-salpa'));
-        else
-            fprintf('Failed\n');
-            fprintf('A Python environment is already loaded. Restart Matlab.\n');
-        end
-    else
-        fprintf('Wrong working directory. Abort.\n');
+    for i = 1:length(configFile)
+        row = strsplit(configFile{i}, '=');
+        config.(row{1}) = row{2};
     end
+    config.PYTHON_PATH = strrep(config.PYTHON_PATH, '//', '\');
+    config.PYTHON_PATH = strrep(config.PYTHON_PATH, '/', '\');
+
+    env = pyenv();
+
+    if ~strcmp(env.Status, 'Loaded')
+        pyenv(Version=config.PYTHON_PATH, ExecutionMode='InProcess');
+        pyrun(["import importlib", "cpython_salpa = importlib.import_module('.', 'python-salpa')"]);
+    elseif strcmp(config.PYTHON_PATH, env.Executable)
+        pyrun(["import importlib", "cpython_salpa = importlib.import_module('.', 'python-salpa')"]);
+    else
+        error('A wrong Python environment is already loaded. Restart Matlab.\n');
+    end
+
+    cd(currentPath);
 end

@@ -1,4 +1,6 @@
 function [output, varargout] = salpa(signal, tau, varargin)
+    init();
+    
     validNumPosCheck = @(x) isnumeric(x) && (x >= 0);
     
     parser = inputParser();
