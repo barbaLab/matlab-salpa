@@ -55,9 +55,14 @@ function installSalpa()
 
     fprintf('Adding matlab-salpa to the path...');
     addpath(newPath);
-    savepath();
-    fprintf(' Done.\n');
-
+    status = savepath();
     cd(currentPath);
-    fprintf('matlab-salpa is now installed and ready to be used.\n');
+    
+    if status == 0
+        fprintf(' Done.\n');
+        fprintf('matlab-salpa is now installed and ready to be used.\n');
+    else
+        fprintf(' Aborted.\n');
+        fprintf('Matlab path could not be saved.\n');
+    end
 end
