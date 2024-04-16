@@ -30,15 +30,11 @@ function [output, varargout] = salpa(signal, tau, varargin)
     tForcePeg = parser.Results.tForcePeg;
     hasNan = parser.Results.hasNan;
 
-    if iscolumn(signal)
-        output = signal';
-    else
-        output = signal;
-    end
-
     varargout{1} = zeros(size(stimIdxs));
 
-    stimIdxs = [1, stimIdxs];
+    output = signal(:)';
+    stimIdxs = [1, stimIdxs(:)'];
+    stimIdxs = unique(sort(stimIdxs));
     artifactNSamples = diff([stimIdxs, length(output)]);
 
     for idx = 1:numel(stimIdxs)
