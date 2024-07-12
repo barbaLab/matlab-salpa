@@ -8,7 +8,5 @@ This repository aims at allowing the [wagenadl/python-salpa](https://github.com/
     git clone --recurse-submodules https://github.com/FrancescoNegri/matlab-salpa.git
     ```
 3) Run `install.m` located in the `matlab-salpa` folder.
-    > If SALPA binaries fail to compile try to install Visual Studio (full version) with the C/C++ build tools and repeat the installation
-    process.
 
 Cheers! Now you should be able to properly call the `salpa` function from Matlab.

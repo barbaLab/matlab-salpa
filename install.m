@@ -48,8 +48,7 @@ function installSalpa()
     end
     fprintf(' Done.\n');
 
-    cd(newPath);
-    fileID = fopen('./config.txt', 'w');
+    fileID = fopen(fullfile(newPath, 'config.txt'), 'w');
     fprintf(fileID, 'PYTHON_PATH=%s', pythonPath);
     fclose(fileID);
 
