@@ -11,9 +11,9 @@ function [output, varargout] = salpa(signal, tau, varargin)
     addParameter(parser, 'rail2', [], @isnumeric);
     addParameter(parser, 'thresh', [], @isnumeric);
     addParameter(parser, 'tBlankDepeg', [], validNumPosCheck);
-    addParameter(parser, 'tAhead', [], @validNumPosCheck);
-    addParameter(parser, 'tChi2', [], @validNumPosCheck);
-    addParameter(parser, 'tForcePeg', [], @validNumPosCheck);
+    addParameter(parser, 'tAhead', [], validNumPosCheck);
+    addParameter(parser, 'tChi2', [], validNumPosCheck);
+    addParameter(parser, 'tForcePeg', [], validNumPosCheck);
     addParameter(parser, 'hasNan', false, @islogical);
 
     parse(parser, signal, tau, varargin{:});
@@ -62,4 +62,5 @@ function [output, varargout] = salpa(signal, tau, varargin)
     if iscolumn(signal)
         output = output';
     end
+
 end
